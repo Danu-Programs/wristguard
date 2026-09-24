@@ -1,0 +1,117 @@
+/* WristGuard design tokens and base components. Light and dark themes. */
+:root {
+  --bg: #f6f7f5;
+  --surface: #ffffff;
+  --surface-2: #eef1ee;
+  --border: #dde3de;
+  --text: #17201c;
+  --text-2: #4b5a53;
+  --text-3: #7a8a82;
+  --accent: #0f766e;
+  --accent-2: #115e59;
+  --accent-soft: #d8efe9;
+  --ok: #15803d;
+  --ok-soft: #dcfce7;
+  --warn: #b45309;
+  --warn-soft: #fef3c7;
+  --risk: #b91c1c;
+  --risk-soft: #fee2e2;
+  --radius: 14px;
+  --radius-sm: 9px;
+  --shadow: 0 1px 2px rgba(16, 24, 20, .05), 0 4px 16px rgba(16, 24, 20, .05);
+  --font: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0e1412;
+    --surface: #151d1a;
+    --surface-2: #1c2622;
+    --border: #2a3631;
+    --text: #e7eeea;
+    --text-2: #aebbb4;
+    --text-3: #7d8c85;
+    --accent: #2dd4bf;
+    --accent-2: #5eead4;
+    --accent-soft: #123a35;
+    --ok: #4ade80;
+    --ok-soft: #133321;
+    --warn: #fbbf24;
+    --warn-soft: #3a2c0c;
+    --risk: #f87171;
+    --risk-soft: #3d1717;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 4px 16px rgba(0, 0, 0, .25);
+    color-scheme: dark;
+  }
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font: 14px/1.5 var(--font);
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3 { margin: 0 0 .4em; line-height: 1.25; letter-spacing: -.01em; }
+h1 { font-size: 22px; font-weight: 650; }
+h2 { font-size: 17px; font-weight: 620; }
+h3 { font-size: 14px; font-weight: 620; }
+p { margin: 0 0 .75em; color: var(--text-2); }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+small, .muted { color: var(--text-3); }
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px;
+  box-shadow: var(--shadow);
+}
+
+.btn {
+  appearance: none;
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  font: 600 13px/1 var(--font);
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background .15s, border-color .15s, transform .05s;
+}
+.btn:hover { background: var(--surface-2); }
+.btn:active { transform: translateY(1px); }
+.btn:focus-visible, input:focus-visible, select:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+.btn.primary:hover { background: var(--accent-2); border-color: var(--accent-2); }
+@media (prefers-color-scheme: dark) { .btn.primary { color: #06201c; } }
+.btn.ghost { background: transparent; border-color: transparent; color: var(--text-2); }
+.btn.ghost:hover { background: var(--surface-2); }
+.btn.block { width: 100%; }
+.btn[disabled] { opacity: .5; cursor: not-allowed; }
+
+.pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 3px 10px; border-radius: 999px;
+  font-size: 12px; font-weight: 600;
+  background: var(--surface-2); color: var(--text-2);
+}
+.pill.ok { background: var(--ok-soft); color: var(--ok); }
+.pill.warn { background: var(--warn-soft); color: var(--warn); }
+.pill.risk { background: var(--risk-soft); color: var(--risk); }
+.pill.accent { background: var(--accent-soft); color: var(--accent); }
+
+.stat { display: flex; flex-direction: column; gap: 2px; }
+.stat .num { font-size: 26px; font-weight: 680; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+.stat .lbl { font-size: 12px; color: var(--text-3); }
+
+.row { display: flex; gap: 10px; align-items: center; }
+.grid { display: grid; gap: 14px; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+
+.brand { display: flex; align-items: center; gap: 9px; font-weight: 680; font-size: 15px; letter-spacing: -.01em; }
+.brand img { width: 24px; height: 24px; border-radius: 6px; }

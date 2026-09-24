@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WristGuard Dashboard</title>
+  <link rel="stylesheet" href="shared/base.css">
+  <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="brand"><img src="icons/icon48.png" alt="">WristGuard</div>
+    <nav id="nav">
+      <a href="#today">Today</a>
+      <a href="#exercises">Exercises</a>
+      <a href="#posture">Posture check</a>
+      <a href="#learn">The research</a>
+      <a href="#history">History</a>
+      <a href="#settings">Settings</a>
+    </nav>
+    <p class="side-note">Not medical advice. See a clinician for numbness, weakness, or pain that lasts.</p>
+  </aside>
+
+  <main>
+    <!-- TODAY -->
+    <section id="view-today" class="view">
+      <div class="card welcome hidden" id="welcome">
+        <h2>WristGuard is running</h2>
+        <p>It counts your <strong>active</strong> computer time. Every 20 active minutes you get a 30-second microbreak, and every hour a short guided exercise routine. Step away for a few minutes and the timers reset on their own.</p>
+        <p>First step: allow notifications if your browser asks, then try the posture check once to see where your wrists sit while you type.</p>
+        <button class="btn" id="dismissWelcome">Got it</button>
+      </div>
+
+      <header class="page-head">
+        <h1>Today</h1>
+        <p id="todayDate"></p>
+      </header>
+
+      <div class="grid cols-2">
+        <div class="card">
+          <h3>Next reminders</h3>
+          <div class="timers">
+            <div class="timer-row">
+              <div><strong>Microbreak</strong><small id="microSub"></small></div>
+              <div class="meter"><div id="microBar"></div></div>
+              <span class="mono" id="microLeft">--</span>
+            </div>
+            <div class="timer-row">
+              <div><strong>Exercise break</strong><small id="exSub"></small></div>
+              <div class="meter"><div id="exBar"></div></div>
+              <span class="mono" id="exLeft">--</span>
+            </div>
+          </div>
+          <div class="row wrap">
+            <button class="btn primary" id="dMicro">Microbreak now</button>
+            <button class="btn" id="dExercise">Exercise routine</button>
+            <button class="btn ghost" id="dReset">Reset timers</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Today at a glance</h3>
+          <div class="stats">
+            <div class="stat"><span class="num" id="tCompleted">0</span><span class="lbl">breaks taken</span></div>
+            <div class="stat"><span class="num" id="tSkipped">0</span><span class="lbl">skipped</span></div>
+            <div class="stat"><span class="num" id="tNatural">0</span><span class="lbl">natural rests</span></div>
+            <div class="stat"><span class="num" id="tFollow">--</span><span class="lbl">follow-through</span></div>
+          </div>
+          <p class="muted small-print" id="streakLine"></p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="row between">
+          <h3>Last 7 days</h3>
+          <div class="legend"><span class="sw ok"></span>taken <span class="sw skip"></span>skipped</div>
+        </div>
+        <div class="chart" id="weekChart" role="img" aria-label="Breaks taken and skipped over the last 7 days"></div>
+      </div>
+
+      <div class="card" id="postureCard">
+        <div class="row between">
+          <h3>Latest posture check</h3>
+          <a href="#posture">Run one</a>
+        </div>
+        <div id="postureSummary" class="muted">No posture checks yet.</div>
+      </div>
+    </section>
+
+    <!-- EXERCISES -->
+    <section id="view-exercises" class="view">
+      <header class="page-head">
+        <h1>Exercises</h1>
+        <p>Seven movements used in the guided routine. Choose which ones run in Settings. Keep stretches mild; stop if numbness or tingling increases.</p>
+      </header>
+      <div class="grid cols-2" id="exerciseList"></div>
+    </section>
+
+    <!-- POSTURE -->
+    <section id="view-posture" class="view">
+      <header class="page-head">
+        <h1>Posture check</h1>
+        <p>Uses your webcam to estimate how far your wrist bends while you type, then compares it to lab-measured pressure thresholds for the carpal tunnel.</p>
+      </header>
+      <div class="grid cols-2">
+        <div class="card">
+          <h3>How to set it up</h3>
+          <ol class="steps">
+            <li><strong>Side view</strong> measures up and down bend (extension and flexion). Put the camera level with your desk, off to one side, so it sees your elbow, forearm and hand.</li>
+            <li><strong>Top view</strong> measures side bend toward the pinky (ulnar) or thumb (radial). Point the camera down at your keyboard with your forearms in frame.</li>
+            <li>Hold your wrist straight in line with your forearm and press <em>Calibrate</em>. Then type normally.</li>
+          </ol>
+          <button class="btn primary" id="openChecker">Open posture checker</button>
+        </div>
+        <div class="card">
+          <h3>What the colors mean</h3>
+          <table class="thresholds">
+            <thead><tr><th>Direction</th><th><span class="pill ok">OK</span></th><th><span class="pill warn">Caution</span></th><th><span class="pill risk">High</span></th></tr></thead>
+            <tbody>
+              <tr><td>Extension (up)</td><td>&lt; 27&deg;</td><td>27&ndash;33&deg;</td><td>&gt; 33&deg;</td></tr>
+              <tr><td>Flexion (down)</td><td>&lt; 38&deg;</td><td>38&ndash;49&deg;</td><td>&gt; 49&deg;</td></tr>
+              <tr><td>Ulnar (pinky side)</td><td>&lt; 12&deg;</td><td>12&ndash;15&deg;</td><td>&gt; 15&deg;</td></tr>
+              <tr><td>Radial (thumb side)</td><td>&lt; 18&deg;</td><td>18&ndash;22&deg;</td><td>&gt; 22&deg;</td></tr>
+            </tbody>
+          </table>
+          <p class="muted small-print">Caution and high cut-offs are the angles where 75% of people stay below 25 and 30 mmHg of carpal tunnel pressure (Keir et al., 2007). A webcam estimate is approximate, typically within several degrees, so treat it as a coach, not a clinical measurement. Video never leaves your computer.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- LEARN -->
+    <section id="view-learn" class="view">
+      <header class="page-head">
+        <h1>The research behind WristGuard</h1>
+        <p>What the evidence supports, how strongly, and how it shaped each feature.</p>
+      </header>
+      <article class="card prose">
+        <h2>1. Wrist angle raises pressure on the median nerve</h2>
+        <p>The median nerve runs through the carpal tunnel with nine finger tendons. Bending the wrist narrows the tunnel and raises pressure inside it. Keir, Bach, Hudes and Rempel (2007) measured pressure across postures and derived angle limits: to keep 75% of people under 30 mmHg, stay within about <strong>33&deg; extension, 49&deg; flexion, 15&deg; ulnar deviation, and 22&deg; radial deviation</strong>. Ulnar deviation (bending toward the pinky) has the least room.</p>
+        <p>Standard keyboards put people close to those limits: Marklin et al. (1999) measured 15&ndash;23&deg; of extension and 10&ndash;16&deg; of ulnar deviation during normal typing, with the forearm rotated 62&ndash;68&deg; palm-down.</p>
+        <p class="feature"><strong>In WristGuard:</strong> the posture checker's color zones use these exact thresholds.</p>
+
+        <h2>2. Computer use is a real but modest risk factor</h2>
+        <p>A 2015 meta-analysis (Shiri &amp; Falah-Hassani) found that among office workers, computer use was linked to higher odds of carpal tunnel syndrome (OR 1.34), with <strong>mouse use</strong> the stronger signal (OR 1.93). The authors call it a minor occupational risk factor. In a large Danish cohort, Andersen et al. (2003) found mouse use above roughly 20 hours a week predicted new tingling and numbness symptoms, while keyboard use did not.</p>
+        <p class="feature"><strong>In WristGuard:</strong> the timers count active input time, because exposure dose is what the studies track.</p>
+
+        <h2>3. Breaks: helpful in field studies, uncertain in reviews</h2>
+        <p>In a NIOSH field study of 42 data-entry workers, adding four 5-minute breaks per shift cut forearm, wrist and hand discomfort and eyestrain with no loss in keystrokes (Galinsky et al., 2000). McLean et al. (2001) found microbreaks every 20 minutes reduced discomfort in the wrist, neck, shoulder and back without hurting productivity.</p>
+        <p>The limits: the 2025 Cochrane review of 9 trials rated the evidence that extra breaks prevent musculoskeletal symptoms as <strong>low certainty</strong>, with small effects. Breaks are cheap and low-risk, not a cure.</p>
+        <p class="feature"><strong>In WristGuard:</strong> 20-minute microbreaks and hourly exercise breaks by default, with snooze and idle detection so the tool costs as little attention as possible.</p>
+
+        <h2>4. Gliding exercises: modest support</h2>
+        <p>A systematic review of 4 randomized trials found tendon and nerve gliding exercises, added to usual care, improved symptom severity and function in carpal tunnel syndrome (Kim, 2015). The evidence is small and mostly about people who already have symptoms.</p>
+        <p class="feature"><strong>In WristGuard:</strong> tendon glides are in the default routine. The median nerve glide is optional and marked with a caution.</p>
+
+        <h2>5. Braces while typing can backfire</h2>
+        <p>The 2024 AAOS/ASSH clinical guideline rates bracing as strongly supported for improving carpal tunnel symptoms, and braces are commonly prescribed for night wear. During work the picture changes: in a lab study, wrist splints cut wrist bending but raised shoulder abduction by 22%, and forearm flexor effort climbed when people bent against the splint (Shu &amp; Mirka, 2006). The authors warned splints at work may do more harm than good.</p>
+        <p class="feature"><strong>In WristGuard:</strong> the tool coaches posture instead of immobilizing the wrist. OSHA advises resting the heel of the palm, not the wrist, on a palm rest, and only between keystrokes.</p>
+
+        <h2>See a clinician if</h2>
+        <ul>
+          <li>Numbness or tingling in the thumb, index and middle fingers lasts more than a couple of weeks</li>
+          <li>Symptoms wake you up at night</li>
+          <li>You notice weakness, clumsiness, or dropping things</li>
+          <li>Pain keeps getting worse despite breaks and setup changes</li>
+        </ul>
+
+        <h2>References</h2>
+        <ol class="refs">
+          <li>Keir PJ, Bach JM, Hudes M, Rempel DM. Guidelines for wrist posture based on carpal tunnel pressure thresholds. <em>Human Factors</em>. 2007;49(1):88&ndash;99.</li>
+          <li>Marklin RW, Simoneau GG, Monroe JF. Wrist and forearm posture from typing on split and vertically inclined computer keyboards. <em>Human Factors</em>. 1999;41(4). doi:10.1518/001872099779656770</li>
+          <li>Shiri R, Falah-Hassani K. Computer use and carpal tunnel syndrome: a meta-analysis. <em>J Neurol Sci</em>. 2015;349:15&ndash;19.</li>
+          <li>Andersen JH, Thomsen JF, Overgaard E, et al. Computer use and carpal tunnel syndrome: a 1-year follow-up study. <em>JAMA</em>. 2003;289(22):2963&ndash;2969.</li>
+          <li>Galinsky TL, Swanson NG, Sauter SL, Hurrell JJ, Schleifer LM. A field study of supplementary rest breaks for data-entry operators. <em>Ergonomics</em>. 2000;43(5):622&ndash;638.</li>
+          <li>McLean L, Tingley M, Scott RN, Rickards J. Computer terminal work and the benefit of microbreaks. <em>Applied Ergonomics</em>. 2001;32(3):225&ndash;237.</li>
+          <li>Luger T, Ferenchak SA, Rieger MA, Steinhilber B. Work-break interventions for preventing musculoskeletal symptoms and disorders in healthy workers. <em>Cochrane Database Syst Rev</em>. 2025. CD012886.pub3.</li>
+          <li>Kim SD. Efficacy of tendon and nerve gliding exercises for carpal tunnel syndrome: a systematic review of randomized controlled trials. <em>J Phys Ther Sci</em>. 2015;27(8):2645&ndash;2648.</li>
+          <li>AAOS/ASSH. Management of Carpal Tunnel Syndrome Evidence-Based Clinical Practice Guideline. 2024.</li>
+          <li>Shu Y, Mirka GA. A laboratory study of the effects of wrist splint orthoses on forearm muscle activity and upper extremity posture. <em>Human Factors</em>. 2006;48(3):499&ndash;510.</li>
+          <li>OSHA. Computer Workstations eTool: Wrist/Palm Supports.</li>
+        </ol>
+      </article>
+    </section>
+
+    <!-- HISTORY -->
+    <section id="view-history" class="view">
+      <header class="page-head row between wrap">
+        <div>
+          <h1>History</h1>
+          <p>Last 90 days, stored only on this computer.</p>
+        </div>
+        <div class="row">
+          <button class="btn" id="exportCsv">Export CSV</button>
+          <button class="btn ghost danger" id="clearHistory">Clear history</button>
+        </div>
+      </header>
+      <div class="card flush">
+        <table class="table" id="historyTable">
+          <thead><tr><th>When</th><th>Type</th><th>Outcome</th><th>Detail</th></tr></thead>
+          <tbody></tbody>
+        </table>
+        <p class="muted empty hidden" id="historyEmpty">Nothing logged yet.</p>
+      </div>
+    </section>
+
+    <!-- SETTINGS -->
+    <section id="view-settings" class="view">
+      <header class="page-head">
+        <h1>Settings</h1>
+        <p>Changes save automatically.</p>
+      </header>
+      <form id="settingsForm" class="grid">
+        <fieldset class="card">
+          <legend>Microbreaks</legend>
+          <label class="switch"><input type="checkbox" name="microEnabled"><span>Remind me to take microbreaks</span></label>
+          <div class="fields">
+            <label>Every <input type="number" name="microIntervalMin" min="5" max="120"> active minutes</label>
+            <label>Lasting <input type="number" name="microDurationSec" min="10" max="300" step="5"> seconds</label>
+          </div>
+        </fieldset>
+
+        <fieldset class="card">
+          <legend>Exercise breaks</legend>
+          <label class="switch"><input type="checkbox" name="exerciseEnabled"><span>Remind me to do an exercise routine</span></label>
+          <div class="fields">
+            <label>Every <input type="number" name="exerciseIntervalMin" min="15" max="240"> active minutes</label>
+          </div>
+          <p class="muted">Routine (<span id="routineLen"></span>)</p>
+          <div id="routinePicker" class="checks"></div>
+        </fieldset>
+
+        <fieldset class="card">
+          <legend>Reminder style</legend>
+          <label class="switch"><input type="checkbox" name="escalate"><span>If I ignore a reminder, open the break window</span></label>
+          <div class="fields">
+            <label>After <input type="number" name="escalateAfterMin" min="1" max="30"> minutes</label>
+            <label>Snooze for <input type="number" name="snoozeMin" min="1" max="60"> minutes</label>
+            <label>Count <input type="number" name="naturalBreakMin" min="2" max="60"> idle minutes as a full break</label>
+          </div>
+          <label class="switch"><input type="checkbox" name="sound"><span>Play sounds</span></label>
+          <label class="switch"><input type="checkbox" name="showBadge"><span>Show minutes left on the toolbar icon</span></label>
+        </fieldset>
+
+        <fieldset class="card">
+          <legend>Active hours</legend>
+          <label class="switch"><input type="checkbox" name="activeHoursEnabled"><span>Only remind me during set hours</span></label>
+          <div class="fields">
+            <label>From <input type="time" name="activeStart"></label>
+            <label>to <input type="time" name="activeEnd"></label>
+          </div>
+          <div class="days" id="dayPicker"></div>
+        </fieldset>
+
+        <fieldset class="card">
+          <legend>Posture checker</legend>
+          <div class="fields">
+            <label>Alert after <input type="number" name="alertAfterSec" min="1" max="60"> seconds in the high zone</label>
+          </div>
+        </fieldset>
+      </form>
+      <p class="saved muted" id="savedNote" aria-live="polite"></p>
+    </section>
+  </main>
+  <script type="module" src="dashboard.js"></script>
+</body>
+</html>

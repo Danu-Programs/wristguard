@@ -1,0 +1,31 @@
+{
+  "manifest_version": 3,
+  "name": "WristGuard",
+  "short_name": "WristGuard",
+  "version": "2.0.0",
+  "description": "Research-based break reminders, guided wrist exercises, and a private webcam posture checker for people who type all day.",
+  "minimum_chrome_version": "116",
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_title": "WristGuard",
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png"
+    }
+  },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "options_page": "dashboard.html#settings",
+  "permissions": ["alarms", "storage", "notifications", "idle"],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'"
+  }
+}

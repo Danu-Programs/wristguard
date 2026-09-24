@@ -1,0 +1,38 @@
+body { min-height: 100vh; display: flex; }
+main { flex: 1; padding: 20px 22px; display: flex; flex-direction: column; gap: 16px; max-width: 460px; margin: 0 auto; }
+.between { justify-content: space-between; }
+.hidden { display: none !important; }
+.center { text-align: center; }
+.panel { display: flex; flex-direction: column; gap: 12px; flex: 1; }
+.panel h1 { font-size: 24px; margin-top: 8px; }
+
+.plan { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; }
+.plan li {
+  display: flex; justify-content: space-between; gap: 12px;
+  padding: 10px 12px; border: 1px solid var(--border); border-radius: var(--radius-sm);
+  background: var(--surface); font-weight: 560;
+}
+.plan li span { color: var(--text-3); font-weight: 500; font-variant-numeric: tabular-nums; }
+#intro .grid { margin-top: auto; gap: 8px; }
+#intro .row .btn { flex: 1; }
+
+.exercise-name { text-align: center; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+.timer { position: relative; width: 200px; height: 200px; margin: 0 auto; }
+.timer svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+.timer circle { fill: none; stroke-width: 10; }
+.timer .track { stroke: var(--surface-2); }
+.timer .progress { stroke: var(--accent); stroke-linecap: round; stroke-dasharray: 552.92; stroke-dashoffset: 0; transition: stroke-dashoffset .25s linear; }
+.timer-center { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.secs { font-size: 54px; font-weight: 700; letter-spacing: -.04em; font-variant-numeric: tabular-nums; }
+#run h2 { text-align: center; font-size: 20px; margin: 0; }
+.step-text { text-align: center; font-size: 15px; color: var(--text); min-height: 3em; margin: 0; }
+.caution { text-align: center; font-size: 12px; font-weight: 600; color: var(--warn); background: var(--warn-soft); padding: 6px 10px; border-radius: 8px; margin: 0; }
+.bar { height: 6px; background: var(--surface-2); border-radius: 99px; overflow: hidden; }
+.bar div { height: 100%; width: 0; background: var(--accent); transition: width .25s linear; }
+.next { text-align: center; font-size: 12px; margin: 0; }
+.controls { justify-content: center; margin-top: auto; }
+
+.check { width: 72px; height: 72px; border-radius: 50%; background: var(--ok-soft); display: grid; place-items: center; margin: 24px auto 4px; }
+.check svg { width: 36px; height: 36px; fill: none; stroke: var(--ok); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+#done { text-align: center; }
+#done .grid { margin-top: auto; gap: 8px; }

@@ -1,0 +1,5 @@
+This folder contains files from the @mediapipe/holistic npm package (version 0.5.1675471629),
+Copyright Google LLC, distributed under the Apache License, Version 2.0.
+You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+
+Files are unmodified. Only the lite pose model (pose_landmark_lite.tflite) is included.

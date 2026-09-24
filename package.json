@@ -1,0 +1,12 @@
+{
+  "name": "wristguard",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Research-based wrist strain prevention: break reminders, guided exercises, and a private webcam posture checker.",
+  "type": "module",
+  "scripts": {
+    "test": "node tests/angles.test.mjs && node tests/syntax-check.mjs",
+    "build": "./build.sh"
+  },
+  "license": "MIT"
+}

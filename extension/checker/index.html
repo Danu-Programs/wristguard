@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WristGuard Posture Check</title>
+  <meta name="description" content="Private, in-browser webcam check of your wrist angle while typing, scored against carpal tunnel pressure thresholds.">
+  <link rel="icon" href="../icons/icon32.png">
+  <link rel="stylesheet" href="../shared/base.css">
+  <link rel="stylesheet" href="checker.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><img src="../icons/icon48.png" alt="">WristGuard <span class="muted">Posture check</span></div>
+    <div class="row">
+      <span class="pill" id="privacyPill" title="Video is processed on this device and never uploaded">Video stays on this device</span>
+      <a href="../dashboard.html" id="backLink" class="btn ghost hidden">Dashboard</a>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="stage-col">
+      <div class="stage" id="stage">
+        <video id="video" playsinline muted></video>
+        <canvas id="overlay"></canvas>
+        <div class="stage-msg" id="stageMsg">
+          <div class="stage-msg-inner">
+            <h2>See how your wrists sit while you type</h2>
+            <p>Pick a camera view, start the camera, then calibrate with a straight wrist.</p>
+            <button class="btn primary" id="btnStart">Start camera</button>
+          </div>
+        </div>
+        <div class="alert hidden" id="alert" role="alert"></div>
+        <div class="countdown hidden" id="countdown"></div>
+      </div>
+      <p class="muted tip" id="tip">Tip: good light and a plain background improve tracking. Your elbow must be in frame.</p>
+    </section>
+
+    <aside class="panel-col">
+      <div class="card">
+        <h3>Camera view</h3>
+        <div class="segmented" role="radiogroup" aria-label="Camera view">
+          <button role="radio" aria-checked="true" data-view="side">Side view<small>up / down bend</small></button>
+          <button role="radio" aria-checked="false" data-view="top">Top view<small>side-to-side bend</small></button>
+        </div>
+        <p class="muted small" id="viewHelp"></p>
+        <div class="row gap">
+          <button class="btn" id="btnCalibrate" disabled>Calibrate</button>
+          <button class="btn ghost" id="btnStop" disabled>Stop</button>
+          <span class="pill" id="calibPill">Not calibrated</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Live reading</h3>
+        <div class="hands" id="hands">
+          <div class="hand" data-side="left">
+            <div class="row between"><strong>Left wrist</strong><span class="pill" data-el="zone">not seen</span></div>
+            <div class="angle"><span data-el="deg">--</span><small data-el="dir"></small></div>
+            <div class="gauge"><div class="zones" data-el="zones"></div><div class="needle" data-el="needle"></div></div>
+            <div class="scale" data-el="scale"></div>
+          </div>
+          <div class="hand" data-side="right">
+            <div class="row between"><strong>Right wrist</strong><span class="pill" data-el="zone">not seen</span></div>
+            <div class="angle"><span data-el="deg">--</span><small data-el="dir"></small></div>
+            <div class="gauge"><div class="zones" data-el="zones"></div><div class="needle" data-el="needle"></div></div>
+            <div class="scale" data-el="scale"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="row between"><h3>This session</h3><span class="mono muted" id="sessTime">0:00</span></div>
+        <div class="zbar"><div class="ok" id="zOk"></div><div class="warn" id="zWarn"></div><div class="risk" id="zRisk"></div></div>
+        <div class="zlegend">
+          <span><i class="ok"></i>OK <b id="pOk">0%</b></span>
+          <span><i class="warn"></i>Caution <b id="pWarn">0%</b></span>
+          <span><i class="risk"></i>High <b id="pRisk">0%</b></span>
+        </div>
+        <p class="muted small">Zones use carpal tunnel pressure thresholds from Keir et al. (2007). Webcam angles are estimates, typically within several degrees.</p>
+      </div>
+    </aside>
+  </main>
+
+  <script src="vendor/holistic/holistic.js"></script>
+  <script type="module" src="checker.js"></script>
+</body>
+</html>

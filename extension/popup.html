@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>WristGuard</title>
+  <link rel="stylesheet" href="shared/base.css">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header class="row between">
+    <div class="brand"><img src="icons/icon48.png" alt="">WristGuard</div>
+    <span id="statusPill" class="pill accent">Active</span>
+  </header>
+
+  <section class="ring-wrap" aria-live="polite">
+    <svg viewBox="0 0 120 120" class="ring" aria-hidden="true">
+      <circle cx="60" cy="60" r="52" class="track"/>
+      <circle cx="60" cy="60" r="52" class="progress" id="ringProgress"/>
+    </svg>
+    <div class="ring-center">
+      <div class="big" id="nextMin">--</div>
+      <div class="small" id="nextLabel">until next break</div>
+    </div>
+  </section>
+
+  <p class="hint" id="hint">Counts active typing time only. Stepping away resets it.</p>
+
+  <div class="grid actions">
+    <button class="btn primary block" id="btnBreak">Take a microbreak now</button>
+    <button class="btn block" id="btnExercise">Start exercise routine</button>
+    <div class="row pause-row" id="pauseRow">
+      <button class="btn ghost" data-pause="30">Pause 30m</button>
+      <button class="btn ghost" data-pause="60">Pause 1h</button>
+      <button class="btn ghost" data-pause="240">Pause 4h</button>
+    </div>
+    <button class="btn block hidden" id="btnResume">Resume reminders</button>
+  </div>
+
+  <section class="today">
+    <div class="stat"><span class="num" id="sCompleted">0</span><span class="lbl">breaks today</span></div>
+    <div class="stat"><span class="num" id="sNatural">0</span><span class="lbl">natural rests</span></div>
+    <div class="stat"><span class="num" id="sStreak">0</span><span class="lbl">day streak</span></div>
+  </section>
+
+  <footer class="row between">
+    <a href="#" id="lnkChecker">Posture check</a>
+    <a href="#" id="lnkDashboard">Dashboard</a>
+    <a href="#" id="lnkSettings">Settings</a>
+  </footer>
+  <script type="module" src="popup.js"></script>
+</body>
+</html>

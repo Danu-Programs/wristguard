@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>WristGuard break</title>
+  <link rel="stylesheet" href="shared/base.css">
+  <link rel="stylesheet" href="break.css">
+</head>
+<body>
+  <main>
+    <header class="row between">
+      <div class="brand"><img src="icons/icon48.png" alt="">WristGuard</div>
+      <span class="pill accent" id="kind">Microbreak</span>
+    </header>
+
+    <!-- Intro -->
+    <section id="intro" class="panel">
+      <h1 id="introTitle">Time to rest your hands</h1>
+      <p id="introText"></p>
+      <ol id="introList" class="plan"></ol>
+      <div class="grid">
+        <button class="btn primary block" id="btnStart">Start</button>
+        <div class="row">
+          <button class="btn block" id="btnSnooze">Snooze</button>
+          <button class="btn ghost block" id="btnSkip">Skip this one</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Running -->
+    <section id="run" class="panel hidden" aria-live="polite">
+      <div class="exercise-name" id="exName"></div>
+      <div class="timer">
+        <svg viewBox="0 0 200 200" aria-hidden="true">
+          <circle cx="100" cy="100" r="88" class="track"/>
+          <circle cx="100" cy="100" r="88" class="progress" id="ring"/>
+        </svg>
+        <div class="timer-center">
+          <div class="secs" id="secs">0</div>
+          <div class="muted" id="stepCount"></div>
+        </div>
+      </div>
+      <h2 id="stepTitle"></h2>
+      <p class="step-text" id="stepText"></p>
+      <p class="caution hidden" id="caution">Gentle only. Stop if numbness or tingling gets worse.</p>
+      <div class="bar"><div id="overall"></div></div>
+      <p class="muted next" id="nextUp"></p>
+      <div class="row controls">
+        <button class="btn" id="btnPause">Pause</button>
+        <button class="btn ghost" id="btnNext">Next step</button>
+        <button class="btn ghost" id="btnEnd">End</button>
+      </div>
+    </section>
+
+    <!-- Done -->
+    <section id="done" class="panel hidden">
+      <div class="check" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg>
+      </div>
+      <h1>Nice work</h1>
+      <p id="doneText">Break logged. Your timer has been reset.</p>
+      <div class="grid">
+        <button class="btn primary block" id="btnClose">Back to work</button>
+        <button class="btn block" id="btnPosture">Check my wrist posture</button>
+      </div>
+      <p class="muted center" id="autoClose"></p>
+    </section>
+  </main>
+  <script type="module" src="break.js"></script>
+</body>
+</html>
